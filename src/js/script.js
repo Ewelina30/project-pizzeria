@@ -93,7 +93,7 @@ initAccordion(){
 
     /* START: click event listener to trigger */
     /*START: kliknij detektor zdarzeń, aby uruchomić*/
-    thisProduct.accordionTrigger.addEventListener('click', function(event){
+    clicableTrigger.addEventListener('click', function(event){
 
       /* prevent default action for event */
       /* zapobiec domyślnej akcji dla zdarzenia */
