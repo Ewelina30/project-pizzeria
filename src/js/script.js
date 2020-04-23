@@ -144,16 +144,16 @@ initAccordion(){
   }
 }
 
-initOrderForm{
+
+initOrderForm(){
   const thisProduct = this;
   console.log(this.initOrderFrom);
 }
 
-processOrder{
+processOrder(){
   const thisProduct = this;
   console.log(this.processOrder);
 }
-
 
 
   const app = {
