@@ -60,9 +60,10 @@
       thisProduct.data = data;
 
       thisProduct.renderInMenu();
-      console.log('new Product', thisProduct);
-
+      thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
 
   }
 
@@ -82,18 +83,29 @@
     menuContainer.appendChild(thisProduct.element);
   }
 
+  getElements(){
+  const thisProduct = this;
+
+  thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+  thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+  thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+  thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+  thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+}
+
 
 initAccordion(){
   const thisProduct = this;
 
   /* find the clickable trigger (the element that should react to clicking) */
   /* znajdź klikalny wyzwalacz (element, który powinien zareagować na kliknięcie) */
-   const clicableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
-   console.log(clicableTrigger);
+   //const clicableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+
 
     /* START: click event listener to trigger */
     /*START: kliknij detektor zdarzeń, aby uruchomić*/
-    clicableTrigger.addEventListener('click', function(event){
+    thisProduct.accordionTrigger.addEventListener('click', function(){
+      console.log('clicked');
 
       /* prevent default action for event */
       /* zapobiec domyślnej akcji dla zdarzenia */
@@ -131,6 +143,17 @@ initAccordion(){
     /* END: kliknij detektor zdarzeń, aby uruchomić */
   }
 }
+
+initOrderForm{
+  const thisProduct = this;
+  console.log(this.initOrderFrom);
+}
+
+processOrder{
+  const thisProduct = this;
+  console.log(this.processOrder);
+}
+
 
 
   const app = {
