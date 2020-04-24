@@ -142,17 +142,100 @@ initAccordion(){
     /* END: click event listener to trigger */
     /* END: kliknij detektor zdarzeń, aby uruchomić */
   }
-}
 
 
 initOrderForm(){
   const thisProduct = this;
   console.log(this.initOrderFrom);
+
+  thisProduct.form.addEventListener('submit', function(event){
+  event.preventDefault();
+  thisProduct.processOrder();
+});
+
+for(let input of thisProduct.formInputs){
+  input.addEventListener('change', function(){
+    thisProduct.processOrder();
+  });
 }
+
+thisProduct.cartButton.addEventListener('click', function(event){
+  event.preventDefault();
+  thisProduct.processOrder();
+  });
+}
+
 
 processOrder(){
   const thisProduct = this;
-  console.log(this.processOrder);
+
+// read all data from the form (using utils.serializeFormToObject) and save it to const formData
+// odczytaj wszystkie dane z formularza (używając utils.serializeFormToObject) i zapisz je w const formData
+  const formData = utils.serializeFormToObject(thisProduct.form);
+  console.log('formData', formData);
+  thisProduct.params = {};
+
+/* set variable price to equal thisProduct.data.price */
+/* ustaw cenę zmienną na tę samą cenę produktu. cena */
+  let price = thisProduct.data.price;
+  console.log(price);
+
+  /* START LOOP: for each paramId in thisProduct.data.params */
+  /* PĘTLA STARTOWA: dla każdej piramidy w tym produkcie.data.params */
+  for(let paramId in thisProduct.data.params) {
+  console.log('param:',param);
+
+/* save the element in thisProduct.data.params with key paramId as const param */
+/* zapisz element w thisProduct.data.params z kluczem paramId jako const param */
+  const param = thisProduct.data.params[paramId];
+
+/* START LOOP: for each optionId in param.options */
+/* START LOOP: dla każdej opcjiId w param.options */
+  for(let optionId in param.options){
+
+/* save the element in param.options with key optionId as const option */
+/* zapisz element w param.options z kluczem optionId jako const opcja */
+  const option = param.options[optionId];
+  const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
+
+/* START IF: if option is selected and option is not default */
+/* ROZPOCZNIJ JEŚLI: jeśli opcja jest wybrana, a opcja nie jest domyślna */
+  if(optionSelected && !option.default){
+
+// add price of option to variable price
+// dodaj cenę opcji do ceny zmiennej
+  price += option.price;
+  }
+
+/* START IF: if option is selected and option is not default */
+/* ROZPOCZNIJ JEŚLI: jeśli opcja jest wybrana, a opcja nie jest domyślna */
+  else if(!optionSelected && option.default){
+
+// deduct price of option from price
+// odjąć cenę opcji od ceny
+  price -= option.price;
+
+/* END IF: if option is selected and option is not default */
+/* KONIEC JEŻELI: jeśli opcja jest zaznaczona, a opcja nie jest domyślna */
+  }
+
+/* END ELSE IF: if option is not selected and option is default */
+/* ZAKOŃCZ JESZCZE: jeśli opcja nie jest zaznaczona, a opcja jest domyślna */
+  }
+
+/* END LOOP: for each optionId in param.options */
+/* END LOOP: dla każdej opcjiId w param.options */
+  }
+
+/* END LOOP: for each paramId in thisProduct.data.params */
+/* PĘTLA KOŃCOWA: dla każdej piramidy w tym produkcie.data.params */
+  }
+
+/* set the contents of thisProduct.priceElem to be the value of variable price */
+/* ustaw zawartość thisProduct.priceElem na wartość zmiennej ceny */
+thisProduct.priceElem.innerHTML = thisProduct.price;
+console.log(thisProduct.params);
+  }
 }
 
 
