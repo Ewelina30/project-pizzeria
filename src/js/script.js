@@ -183,7 +183,7 @@ processOrder(){
   /* START LOOP: for each paramId in thisProduct.data.params */
   /* PĘTLA STARTOWA: dla każdej piramidy w tym produkcie.data.params */
   for(let paramId in thisProduct.data.params) {
-  console.log('param:',param);
+  //console.log('param:',param);
 
 /* save the element in thisProduct.data.params with key paramId as const param */
 /* zapisz element w thisProduct.data.params z kluczem paramId jako const param */
@@ -230,12 +230,15 @@ processOrder(){
 /* END LOOP: for each paramId in thisProduct.data.params */
 /* PĘTLA KOŃCOWA: dla każdej piramidy w tym produkcie.data.params */
 
+  // multiply price by amount
+  price *= thisProduct.amountWidget.value;
+    thisProduct.priceSingle = price;
+    thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
   /* set the contents of thisProduct.priceElem to be the value of variable price */
   /* ustaw zawartość thisProduct.priceElem na wartość zmiennej ceny */
   thisProduct.priceElem.innerHTML = thisProduct.price;
   console.log(thisProduct.params);
-    }
-}
+  }
 }
 
   const app = {
