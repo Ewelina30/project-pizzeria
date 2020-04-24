@@ -230,10 +230,6 @@ processOrder(){
 /* END LOOP: for each paramId in thisProduct.data.params */
 /* PĘTLA KOŃCOWA: dla każdej piramidy w tym produkcie.data.params */
 
-  // multiply price by amount
-  price *= thisProduct.amountWidget.value;
-    thisProduct.priceSingle = price;
-    thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
   /* set the contents of thisProduct.priceElem to be the value of variable price */
   /* ustaw zawartość thisProduct.priceElem na wartość zmiennej ceny */
   thisProduct.priceElem.innerHTML = thisProduct.price;
