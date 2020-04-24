@@ -229,15 +229,14 @@ processOrder(){
 
 /* END LOOP: for each paramId in thisProduct.data.params */
 /* PĘTLA KOŃCOWA: dla każdej piramidy w tym produkcie.data.params */
-  }
 
-/* set the contents of thisProduct.priceElem to be the value of variable price */
-/* ustaw zawartość thisProduct.priceElem na wartość zmiennej ceny */
-thisProduct.priceElem.innerHTML = thisProduct.price;
-console.log(thisProduct.params);
-  }
+  /* set the contents of thisProduct.priceElem to be the value of variable price */
+  /* ustaw zawartość thisProduct.priceElem na wartość zmiennej ceny */
+  thisProduct.priceElem.innerHTML = thisProduct.price;
+  console.log(thisProduct.params);
+    }
 }
-
+}
 
   const app = {
     initMenu: function(){
@@ -271,4 +270,4 @@ console.log(thisProduct.params);
   };
 
   app.init();
-}
+  }
