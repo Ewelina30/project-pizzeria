@@ -232,7 +232,7 @@ processOrder(){
 
   /* set the contents of thisProduct.priceElem to be the value of variable price */
   /* ustaw zawartość thisProduct.priceElem na wartość zmiennej ceny */
-  thisProduct.priceElem.innerHTML = thisProduct.price;
+  thisProduct.priceElem.textContent = price;
   console.log(thisProduct.params);
   }
 }
