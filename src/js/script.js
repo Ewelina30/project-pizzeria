@@ -216,10 +216,9 @@ processOrder(){
 // odjąć cenę opcji od ceny
   price -= option.price;
 
-/* END IF: if option is selected and option is not default */
-/* KONIEC JEŻELI: jeśli opcja jest zaznaczona, a opcja nie jest domyślna */
-  }
-
+  /* END IF: if option is selected and option is not default */
+  /* KONIEC JEŻELI: jeśli opcja jest zaznaczona, a opcja nie jest domyślna */
+      }
 
   //make constant and add to it all images for option
   //ustaw stałą i dodaj do niej wszystkie obrazy dla opcji
