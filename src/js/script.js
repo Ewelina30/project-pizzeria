@@ -91,6 +91,7 @@
   thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
   thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
   thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+  thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
 }
 
 
@@ -222,6 +223,31 @@ processOrder(){
 /* END ELSE IF: if option is not selected and option is default */
 /* ZAKOŃCZ JESZCZE: jeśli opcja nie jest zaznaczona, a opcja jest domyślna */
   }
+
+  //make constant and add to it all images for option
+  //ustaw stałą i dodaj do niej wszystkie obrazy dla opcji
+    const optionImages = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
+    console.log('IMAGES:', optionImages);
+
+        if(optionSelected){
+          if(!thisProduct.params[paramId]){
+
+            thisProduct.params[paramId] = {
+              label: param.label,
+              options: {},
+            };
+          }
+          thisProduct.params[paramId].options[optionId] = option.label;
+
+          for (let images of optionImages) {
+            images.classList.add(classNames.menuProduct.imageVisible);
+          }
+        }
+        else {
+          for(let images of optionImages) {
+            images.classList.remove(classNames.menuProduct.imageVisible);
+          }
+        }
 
 /* END LOOP: for each optionId in param.options */
 /* END LOOP: dla każdej opcjiId w param.options */
