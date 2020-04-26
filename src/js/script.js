@@ -220,9 +220,6 @@ processOrder(){
 /* KONIEC JEŻELI: jeśli opcja jest zaznaczona, a opcja nie jest domyślna */
   }
 
-/* END ELSE IF: if option is not selected and option is default */
-/* ZAKOŃCZ JESZCZE: jeśli opcja nie jest zaznaczona, a opcja jest domyślna */
-  }
 
   //make constant and add to it all images for option
   //ustaw stałą i dodaj do niej wszystkie obrazy dla opcji
@@ -248,6 +245,10 @@ processOrder(){
             images.classList.remove(classNames.menuProduct.imageVisible);
           }
         }
+
+/* END ELSE IF: if option is not selected and option is default */
+/* ZAKOŃCZ JESZCZE: jeśli opcja nie jest zaznaczona, a opcja jest domyślna */
+  }
 
 /* END LOOP: for each optionId in param.options */
 /* END LOOP: dla każdej opcjiId w param.options */
