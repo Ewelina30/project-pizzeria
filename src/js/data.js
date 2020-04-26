@@ -91,8 +91,8 @@ dataSource.products = {
       '<img class="active ingredients-tomatoes" src="images/salad/tomatoes.svg" style="z-index: 2;">',
       '<img class="active ingredients-olives" src="images/salad/salad-olives.svg" style="z-index: 3;">',
       '<img class="active ingredients-feta" src="images/salad/feta.svg" style="z-index: 4;">',
-      '<img class="active ingredients-herbs" src="images/salad/herbs.svg" style="z-index: 5;">',
-      '<img class="active ingredients-cheese" src="images/salad/cheese.svg" style="z-index: 6;">',
+      '<img class="avtive ingredients-herbs" src="images/salad/herbs.svg" style="z-index: 5;">',
+      '<img class="avtive ingredients-cheese" src="images/salad/cheese.svg" style="z-index: 6;">',
       '<img class="active ingredients-pepper" src="images/salad/black-pepper.svg" style="z-index: 7;">',
     ],
     params: {
