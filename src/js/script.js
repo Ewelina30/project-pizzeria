@@ -374,7 +374,7 @@
       thisCart.products = [];
 
       thisCart.getElements(element);
-      thisCart.thisActions();
+      thisCart.initActions();
 
       console.log('new Cart', thisCart);
     }
