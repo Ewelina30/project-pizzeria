@@ -432,7 +432,7 @@
 
   class CartProduct{
     constructor(menuProduct,element){
-      thisCartProduct = this;
+      const thisCartProduct = this;
 
       thisCartProduct.id = menuProduct.id;
       thisCartProduct.name = menuProduct.name;
@@ -448,7 +448,7 @@
     }
 
     getElements(element){
-      thisCartProduct = this;
+      const thisCartProduct = this;
 
       thisCartProduct.dom = {};
       thisCartProduct.dom.wrapper = element;
