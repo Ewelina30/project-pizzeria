@@ -336,9 +336,9 @@
       const thisWidget = this;
 
       thisWidget.element = element;
-      thisWidget.dom.input = thisWidget.dom.querySelector(select.widgets.amount.input);
-      thisWidget.dom.linkDecrease = thisWidget.dom.querySelector(select.widgets.amount.linkDecrease);
-      thisWidget.dom.linkIncrease = thisWidget.dom.querySelector(select.widgets.amount.linkIncrease);
+      thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.amount.input);
+      thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
     }
 
     setValue(value){
@@ -464,7 +464,10 @@
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
 
       thisCartProduct.dom.amountWidgetElem.addEventListener('updated', function(){
-        
+      thisCartProduct.amount = thisCartProduct.amountWidget.value;
+      thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
+      console.log('thisCartProduct price is: ', thisCartProduct.price);
+      thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
       }
      }
