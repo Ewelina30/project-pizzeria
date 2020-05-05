@@ -437,9 +437,9 @@
       };
 
       for (let product of thisCart.products){
-        const singleProduct = product.getData();
+        product.getData();
   
-        payload.products.push(singleProduct);
+        payload.products.push(product);
       }
       
 
@@ -597,12 +597,16 @@
 
     getData(){
       const thisCartProduct = this;
-        
-      return thisCartProduct.id,
-      thisCartProduct.price,
-      thisCartProduct.priceSingle,
-      thisCartProduct.amount,
-      thisCartProduct.params;
+  
+      const productData = {
+        id: thisCartProduct.id,
+        price: thisCartProduct.price,
+        priceSingle: thisCartProduct.priceSingle,
+        amount: thisCartProduct.amount,
+        params: thisCartProduct.params,
+      };
+     
+      return productData;
     }
   }
 
