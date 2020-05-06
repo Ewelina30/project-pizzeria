@@ -2,7 +2,7 @@ import {select,classNames, templates} from './settings.js';
 import utils from './utils.js';
 import AmountWidget from './components/AmoutnWidget.js';
 
-class Product{
+export class Product{
   constructor(id,data){
     const thisProduct = this;
 
