@@ -1,3 +1,9 @@
+import {select} from '../settings.js';
+import {settings, classNames, templates} from '../settings.js';
+import {utils} from '../utils.js';
+import {CartProduct} from './CartProduct.js';
+
+
 class Cart{
   constructor(element){
     const thisCart = this;
