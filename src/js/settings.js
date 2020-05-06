@@ -45,6 +45,7 @@ export const select = {
         remove: '[href="#remove"]',
     },
 };
+
 export const classNames = {
     menuProduct: {
       wrapperActive: 'active',
@@ -55,6 +56,7 @@ export const classNames = {
       wrapperActive: 'active',
     },
 };
+
 export const settings = {
     amountWidget: {
       defaultValue: 1,
@@ -72,8 +74,8 @@ export const settings = {
       order: 'order',
     },
 };
-export templates = {
+
+export const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
     cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
-    }
 };
