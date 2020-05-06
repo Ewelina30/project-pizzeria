@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* global Handlebars, utils, dataSource */// eslint-disable-line no-unused-vars
+
 import {settings, select} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
