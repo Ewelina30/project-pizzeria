@@ -76,3 +76,4 @@ export class CartProduct{
   }
 }
 
+export default CartProduct;
