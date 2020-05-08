@@ -33,12 +33,15 @@ const app = {
         event.preventDefault();
 
         /*get page id from href atribute*/
+        /* pobierz identyfikator strony z atrybutu href */
         const id = clickedElement.getAttribute('href').replace('#', '');
 
         /*run thisApp.activatePage with that id*/
+        /* uruchom thisApp.activatePage z tym identyfikatorem */
         thisApp.activatePages(id);
 
         /*change URL hash*/
+        /* zmiana skrótu adresu URL */
         window.location.hash = '#/' + id;
 
       });
