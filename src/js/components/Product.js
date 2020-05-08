@@ -140,7 +140,7 @@ export class Product{
 
     const event = new CustomEvent('add-to-cart', {
       bubbles: true,
-      details: {
+      detail: {
         product: thisProduct,
       },
     });
