@@ -51,9 +51,9 @@ const app = {
   initBooking: function (){
     const thisApp = this;
 
-    const bookingWrapper = document.querySelector(select.containerOf.booking);
+    const bookingWrapper = document.querySelector(select.containerOf.booking); //znajduje kontener widgetu do rezerwacji stron, którego selektor mamy zapisany w select.containerOf.booking
 
-    thisApp.booking = new Booking(bookingWrapper);
+    thisApp.booking = new Booking(bookingWrapper); //tworzy nową instancję klasy Booking
   },
 
   activatePages: function(pageId){
