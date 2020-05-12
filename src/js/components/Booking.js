@@ -10,6 +10,7 @@ export class Booking {
     thisBooking.render(element);
     thisBooking.initWidgets();
   }
+
   render(element) {
     const thisBooking = this;
 
@@ -32,6 +33,7 @@ export class Booking {
       select.widgets.hourPicker.wrapper
     );
   }
+  
   initWidgets() {
     const thisBooking = this;
 
