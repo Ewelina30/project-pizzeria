@@ -1,4 +1,4 @@
-import { settings, select, classNames } from './settings.js';
+import {settings, select, classNames} from './settings.js';
 import Product from './components/product.js';
 import Cart from './components/cart.js';
 import {Booking} from './components/booking.js';
@@ -66,7 +66,7 @@ const app = {
         return rawResponse.json();
       })
       .then(function (parsedResponse) {
-        console.log(parsedResponse);
+        // console.log(parsedResponse);
 
         // save parsedResponse as thisApp.data.products
         thisApp.data.products = parsedResponse;
@@ -75,7 +75,7 @@ const app = {
         thisApp.initMenu();
       });
 
-    console.log(JSON.stringify(thisApp.data));
+    // console.log(JSON.stringify(thisApp.data));
   },
 
   initMenu: function () {
