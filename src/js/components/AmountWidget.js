@@ -7,10 +7,8 @@ class AmountWidget extends BaseWidget {
 
     const thisWidget = this;
     thisWidget.getElements(element);
-
+    thisWidget.setValue();
     thisWidget.initActions();
-    console.log(thisWidget);
-    // console.log(element);
   }
 
   getElements() {
@@ -34,8 +32,8 @@ class AmountWidget extends BaseWidget {
   isValid(value) {
     return (
       !isNaN(value) &&
-      value >= settings.AmountWidget.defaultMin &&
-      value <= settings.AmountWidget.defaultMax
+      value >= settings.amountWidget.defaultMin &&
+      value <= settings.amountWidget.defaultMax
     );
   }
 
