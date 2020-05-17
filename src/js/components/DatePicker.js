@@ -1,5 +1,6 @@
 /* global flatpickr */
 
+
 import BaseWidget from './BaseWidget.js';
 import utils from '../utils.js';
 import { settings, select } from '../settings.js';
@@ -17,7 +18,7 @@ export class DatePicker extends BaseWidget {
     thisWidget.initPlugin();
   }
 
-  initPlugin(){
+  initPlugin() {
     const thisWidget = this;
 
     thisWidget.minDate = new Date(thisWidget.value);
