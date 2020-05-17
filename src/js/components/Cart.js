@@ -34,6 +34,7 @@ class Cart {
       'deliveryFee',
     ];
 
+    // PAYLOAD ELEMENTS
     thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
     thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
     thisCart.dom.address = thisCart.dom.wrapper.querySelector(
@@ -151,7 +152,6 @@ class Cart {
 
     thisCart.update();
   }
-
   reset(){
     const thisCart = this;
     thisCart.products = [];
