@@ -46,11 +46,11 @@ class Cart {
       );
     }
   }
+  
   initActions() {
     const thisCart = this;
 
     thisCart.dom.toggleTrigger.addEventListener('click', function () {
-      event.preventDefault();
       thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
     });
 
