@@ -44,8 +44,7 @@ class CartProduct {
     );
     thisCartProduct.dom.amountWidget.addEventListener('updated', function () {
       thisCartProduct.amount = thisCartProduct.amountWidget.value;
-      thisCartProduct.price =
-        thisCartProduct.priceSingle * thisCartProduct.amount;
+      thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
       thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
     });
   }
@@ -65,15 +64,18 @@ class CartProduct {
 
   initActions() {
     const thisCartProduct = this;
+
     thisCartProduct.dom.edit.addEventListener('click', function (event) {
       event.preventDefault();
     });
+
     thisCartProduct.dom.remove.addEventListener('click', function (event) {
       event.preventDefault();
       // console.log(thisCartProduct.dom.remove);
       thisCartProduct.remove();
     });
   }
+  
   getData() {
     const thisCartProduct = this;
 
