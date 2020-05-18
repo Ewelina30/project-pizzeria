@@ -139,8 +139,8 @@ export class Booking {
 
 
       table.addEventListener('click', function () {
-        console.log('table selected');
-        // table.classList.toggle(classNames.booking.tableChoosed);
+        //console.log('table selected');
+        table.classList.toggle(classNames.booking.tableChoosed);
 
         const tableChoosed = table.classList.contains(classNames.booking.tableBooked);
         if (!tableChoosed) {
@@ -215,6 +215,15 @@ export class Booking {
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(
       select.booking.tables
     );
+    thisBooking.dom.starters = element.querySelectorAll(
+      select.booking.starter
+    );
+    thisBooking.dom.phone = element.querySelector(
+      select.booking.phone
+    );
+    thisBooking.dom.address = element.querySelector(
+      select.booking.address
+    );
   }
 
   initWidgets() {
@@ -228,5 +237,12 @@ export class Booking {
     thisBooking.dom.wrapper.addEventListener('updated', function(){
       thisBooking.updateDOM();
     });
+
+    thisBooking.dom.wrapper.addEventListener('submit', function () {
+      event.preventDefault();
+      //thisBooking.sendBooking();
+      thisBooking.getData();
+    });
   }
 }
+   
