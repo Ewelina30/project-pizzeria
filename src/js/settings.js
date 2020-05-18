@@ -1,5 +1,4 @@
 /* global Handlebars */
-
 export const select = {
   templateOf: {
     menuProduct: '#template-menu-product',
@@ -64,6 +63,10 @@ export const select = {
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
+    form: 'form',
+    phone: '[name="phone"]',
+    address: '[name="address"]',
+    starters: '[name="starter"]',
   },
   nav: {
     links: '.main-nav a',
@@ -81,6 +84,7 @@ export const classNames = {
   booking: {
     loading: 'loading',
     tableBooked: 'booked',
+    tableChoosed: 'choosed',
   },
   nav: {
     active: 'active',
