@@ -1,4 +1,5 @@
 /* global Handlebars */
+
 export const select = {
   templateOf: {
     menuProduct: '#template-menu-product',
@@ -63,9 +64,9 @@ export const select = {
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
-    form: 'form',
-    phone: '[name="phone"]',
-    address: '[name="address"]',
+    bookTable: '.booking-form [type="submit"]',
+    bookPhone: '.booking-form [name="phone"]',
+    bookAddress: '.booking-form [name="address"]',
     starters: '[name="starter"]',
   },
   nav: {
@@ -84,7 +85,6 @@ export const classNames = {
   booking: {
     loading: 'loading',
     tableBooked: 'booked',
-    tableChoosed: 'choosed',
   },
   nav: {
     active: 'active',
@@ -114,7 +114,10 @@ export const settings = {
     tableIdAttribute: 'data-table',
   },
   db: {
-    url: '//localhost:3131',
+    url:
+      '//' +
+      window.location.hostname +
+      (window.location.hostname == 'localhost' ? ':3131' : ''),
     product: 'product',
     order: 'order',
     booking: 'booking',
