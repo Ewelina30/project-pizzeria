@@ -1,8 +1,8 @@
-import {templates, select, settings, classNames} from '../settings.js';
+import { templates, select, settings, classNames } from '../settings.js';
 import utils from '../utils.js';
 import AmountWidget from './AmountWidget.js';
-import {DatePicker} from './DatePicker.js';
-import {HourPicker} from './HourPicker.js';
+import { DatePicker } from './DatePicker.js';
+import { HourPicker } from './HourPicker.js';
 
 export class Booking {
   constructor(element) {
@@ -11,16 +11,20 @@ export class Booking {
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
-    thisBooking.addTableListeners();
+    thisBooking.selectTable();
   }
 
   getData() {
     const thisBooking = this;
 
     const startDateParam =
-      settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
-
-    const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
+      settings.db.dateStartParamKey +
+      '=' +
+      utils.dateToStr(thisBooking.datePicker.minDate);
+    const endDateParam =
+      settings.db.dateEndParamKey +
+      '=' +
+      utils.dateToStr(thisBooking.datePicker.maxDate);
 
     const params = {
       booking: [startDateParam, endDateParam],
@@ -30,16 +34,24 @@ export class Booking {
 
     const urls = {
       booking:
-        settings.db.url + '/' + settings.db.booking
-                        + '?' + params.booking.join('&'),
+        settings.db.url +
+        '/' +
+        settings.db.booking +
+        '?' +
+        params.booking.join('&'),
       eventsCurrent:
-      settings.db.url + '/' + settings.db.event
-                      + '?' + params.eventsCurrent.join('&'),
+        settings.db.url +
+        '/' +
+        settings.db.event +
+        '?' +
+        params.eventsCurrent.join('&'),
       eventsRepeat:
-        settings.db.url + '/' + settings.db.event
-                        + '?' + params.eventsRepeat.join('&'),
+        settings.db.url +
+        '/' +
+        settings.db.event +
+        '?' +
+        params.eventsRepeat.join('&'),
     };
-
 
     Promise.all([
       fetch(urls.booking),
@@ -62,15 +74,15 @@ export class Booking {
       });
   }
 
-  parseData(bookings, eventsCurrent, eventsRepeat){
+  parseData(bookings, eventsCurrent, eventsRepeat) {
     const thisBooking = this;
 
     thisBooking.booked = {};
 
-    for(let item of bookings){
+    for (let item of bookings) {
       thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
     }
-    for(let item of eventsCurrent){
+    for (let item of eventsCurrent) {
       thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
     }
 
@@ -78,114 +90,174 @@ export class Booking {
 
     const maxDate = thisBooking.datePicker.maxDate;
 
-    for(let item of eventsRepeat){
-      if(item.repeat == 'daily');
-      for(let loopDate = minDate; loopDate <= maxDate; loopDate = utils.addDays(loopDate, 1)){
-        thisBooking.makeBooked(utils.dateToStr(loopDate), item.hour, item.duration, item.table);
+    for (let item of eventsRepeat) {
+      if (item.repeat == 'daily');
+      for (
+        let loopDate = minDate;
+        loopDate <= maxDate;
+        loopDate = utils.addDays(loopDate, 1)
+      ) {
+        thisBooking.makeBooked(
+          utils.dateToStr(loopDate),
+          item.hour,
+          item.duration,
+          item.table
+        );
       }
     }
 
-    thisBooking.updateDOM();
+    thisBooking.updateDom();
   }
 
-  makeBooked(date, hour, duration, table){
+  makeBooked(date, hour, duration, table) {
     const thisBooking = this;
 
-    if (typeof thisBooking.booked[date] == 'undefined'){
+    if (typeof thisBooking.booked[date] == 'undefined') {
       thisBooking.booked[date] = {};
     }
 
     const startHour = utils.hourToNumber(hour);
 
-    if (typeof thisBooking.booked[date][startHour] == 'undefined'){
+    if (typeof thisBooking.booked[date][startHour] == 'undefined') {
       thisBooking.booked[date][startHour] = [];
     }
 
     thisBooking.booked[date][startHour].push(table);
 
-    for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock+= 0.5){
-      if (typeof thisBooking.booked[date][hourBlock] == 'undefined'){
+    for (
+      let hourBlock = startHour;
+      hourBlock < startHour + duration;
+      hourBlock += 0.5
+    ) {
+      if (typeof thisBooking.booked[date][hourBlock] == 'undefined') {
         thisBooking.booked[date][hourBlock] = [];
       }
 
       thisBooking.booked[date][hourBlock].push(table);
-
     }
   }
 
-  addTableListeners() {
+  updateDom() {
     const thisBooking = this;
-
-    for (let table of thisBooking.dom.tables) {
-      let tableNr = table.getAttribute(settings.booking.tableIdAttribute);
-
-      if (!isNaN(tableNr)) {
-        tableNr = parseInt(tableNr);
-      }
-
-      table.addEventListener('click', function () {
-
-        const tableChoosed = table.classList.contains(classNames.booking.tableBooked);
-        if (!tableChoosed) {
-          const activeTable = thisBooking.dom.wrapper.querySelector('.' + classNames.booking.tableChoosed);
-          if(activeTable) activeTable.classList.remove(classNames.booking.tableChoosed);
-          table.classList.add(classNames.booking.tableChoosed);
-          thisBooking.tableIsBooked = tableNr;
-        }
-      });
-
-    }
-
-  }
-
-  updateDOM() {
-    const thisBooking = this;
-    thisBooking.tableIsBooked = null;
-
-    //console.log('updated dom');
 
     thisBooking.date = thisBooking.datePicker.value;
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
 
-    for (let table of thisBooking.dom.tables) {
-      let tableNr = table.getAttribute(settings.booking.tableIdAttribute);
+    let allAvailable = false;
 
-      if (!isNaN(tableNr)) {
-        tableNr = parseInt(tableNr);
+    if (
+      typeof thisBooking.booked[thisBooking.date] == 'undefined' ||
+      typeof thisBooking.booked[thisBooking.date][thisBooking.hour] ==
+        'undefined'
+    ) {
+      allAvailable = true;
+    }
+
+    for (let table of thisBooking.dom.tables) {
+      let tableId = table.getAttribute(settings.booking.tableIdAttribute);
+      if (!isNaN(tableId)) {
+        tableId = parseInt(tableId);
       }
 
-      if (typeof thisBooking.booked[thisBooking.date] !== 'undefined'
-      && typeof thisBooking.booked[thisBooking.date][thisBooking.hour] !== 'undefined'
-      && thisBooking.booked[thisBooking.date][thisBooking.hour].indexOf(tableNr) > -1) {
-
+      if (
+        !allAvailable &&
+        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(
+          tableId
+        ) > -1
+      ) {
         table.classList.add(classNames.booking.tableBooked);
       } else {
         table.classList.remove(classNames.booking.tableBooked);
-        table.classList.remove(classNames.booking.tableChoosed);
       }
 
+      table.addEventListener('click', function () {
+        table.classList.toggle(classNames.booking.tableBooked);
+
+        // TEST SCRIPT TO BE DELETED
+
+        // const tableSelected = table.classList.contains(classNames.booking.tableBooked);
+        // console.log(tableSelected);
+        // if (!tableSelected) {
+        //   table.classList.add(classNames.booking.tableBooked);
+        //   // table.classList.add(classNames.booking.tableSelected);
+        //   thisBooking.tableIsBooked = tableId;
+        // }
+      });
     }
   }
 
-  sendBooking(){
+  selectTable() {
+    const thisBooking = this;
+
+    thisBooking.date = thisBooking.datePicker.value;
+    //console.log(thisBooking.date);
+    thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
+    //console.log(thisBooking.hour);
+
+    for (let table of thisBooking.dom.tables) {
+      //console.log('table: ', table);
+      table.addEventListener('click', function () {
+        const tableId = table.getAttribute(settings.booking.tableIdAttribute);
+        const tableBooked = table.classList.contains(
+          classNames.booking.tableBooked
+        );
+
+        let tableBookedId =
+          thisBooking.booked[thisBooking.date][thisBooking.hour];
+        if (!isNaN(tableBookedId)) {
+          tableBookedId = parseInt(tableBookedId);
+          console.log('table reserved: ', tableBookedId);
+        } else {
+          //console.log('no events at this time');
+        }
+
+        if (!tableBooked) {
+          table.classList.add(
+            classNames.booking.tableBooked,
+            classNames.booking.tableSelected
+          );
+          thisBooking.tableSelected = tableId;
+        } else if (tableBooked && tableId != tableBookedId) {
+          table.classList.remove(classNames.booking.tableBooked);
+        }
+      });
+    }
+  }
+
+  sendReservation() {
     const thisBooking = this;
 
     const url = settings.db.url + '/' + settings.db.booking;
 
     const payload = {
-      date: thisBooking.date,
-      hour: utils.numberToHour(thisBooking.hour),
-      table: thisBooking.tableIsBooked,
-      duration: thisBooking.hoursAmount.value,
+      date: thisBooking.datePicker.value,
+      hour: thisBooking.hourPicker.value,
+      table: [],
       ppl: thisBooking.peopleAmount.value,
+      duration: thisBooking.dom.hoursAmount.value,
       starters: [],
-      address: thisBooking.dom.address.value,
       phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
     };
 
     for (let starter of thisBooking.dom.starters) {
       if (starter.checked == true) {
         payload.starters.push(starter.value);
+      }
+    }
+
+    for (let table of thisBooking.dom.tables) {
+      const tableBooked = table.classList.contains(
+        classNames.booking.tableSelected
+      );
+      if (tableBooked) {
+        thisBooking.tableId = table.getAttribute(
+          settings.booking.tableIdAttribute
+        );
+        thisBooking.tableId = parseInt(thisBooking.tableId);
+
+        payload.table.push(thisBooking.tableId);
+        //console.log(thisBooking.tableId);
       }
     }
 
@@ -198,12 +270,20 @@ export class Booking {
     };
 
     fetch(url, options)
-      .then(function(response){
+      .then(function (response) {
         return response.json();
-      }).then(function(parsedResponse){
+      })
+      .then(function (parsedResponse) {
         console.log('parsedResponse', parsedResponse);
-        thisBooking.makeBooked(payload.date, payload.hour, payload.table, payload.duration);
+        thisBooking.makeBooked(
+          payload.date,
+          payload.hour,
+          payload.duration,
+          payload.table
+        );
+        console.log('booked: ', thisBooking.booked[payload.date]);
       });
+    thisBooking.clearForm();
   }
 
   render(element) {
@@ -227,40 +307,52 @@ export class Booking {
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(
       select.widgets.hourPicker.wrapper
     );
+
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(
       select.booking.tables
     );
-    thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(
-      select.booking.form
+    thisBooking.dom.submitButton = thisBooking.dom.wrapper.querySelector(
+      select.booking.bookTable
     );
     thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(
-      select.booking.phone
+      select.booking.bookPhone
     );
-
     thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(
-      select.booking.address
+      select.booking.bookAddress
     );
-
     thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(
       select.booking.starters
     );
   }
-
   initWidgets() {
     const thisBooking = this;
 
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
-    thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
+    thisBooking.hourseAmount = new AmountWidget(thisBooking.dom.hoursAmount);
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
 
-    thisBooking.dom.wrapper.addEventListener('updated', function(){
-      thisBooking.updateDOM();
+    thisBooking.dom.wrapper.addEventListener('updated', function () {
+      thisBooking.updateDom();
     });
-
-    thisBooking.dom.form.addEventListener('submit', function(event) {
+    thisBooking.dom.submitButton.addEventListener('click', function (event) {
       event.preventDefault();
-      thisBooking.sendBooking();
+      thisBooking.sendReservation();
     });
+  }
+  clearForm () {
+    const thisBooking = this;
+
+    thisBooking.peopleAmount.value = 1;
+    thisBooking.hoursAmount.value = 1;
+
+    for (let starter of thisBooking.dom.starters) {
+      if (starter.checked==true){
+        starter.checked = false;
+      }
+    }
+    thisBooking.dom.starters = [];
+    thisBooking.dom.phone.value = '';
+    thisBooking.dom.address.value = '';
   }
 }
