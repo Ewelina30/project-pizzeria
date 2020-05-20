@@ -169,12 +169,10 @@ class Product {
     const thisProduct = this;
 
     thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
-
     thisProduct.amountWidgetElem.addEventListener('updated', function () {
       thisProduct.processOrder();
     });
   }
-  
   addToCart() {
     const thisProduct = this;
     thisProduct.name = thisProduct.data.name;
