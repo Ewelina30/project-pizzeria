@@ -1,1 +1,1 @@
-italiana-ristorante2.herokuapp.com
+italiana-ristorante.herokuapp.com
