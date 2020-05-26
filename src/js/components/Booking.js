@@ -289,5 +289,4 @@ export class Booking {
     const pushedColors = colors.join();
     rangeSlider.style.background = 'linear-gradient(to right, ' + pushedColors + ')';
   }
-
 }
