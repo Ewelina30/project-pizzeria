@@ -36,17 +36,19 @@ export const select = {
       input: `input[name="date"]`,
     },
     hourPicker: {
+      rangeSlider: '.rangeSlider__horizontal',
       wrapper: '.hour-picker',
       input: 'input[type="range"]',
       output: '.output',
+      rangeSliderFill: '.rangeSlider__fill__horizontal',
+
     },
   },
   cart: {
     productList: '.cart__order-summary',
     toggleTrigger: '.cart__summary',
-    totalNumber: '.cart__total-number',
-    totalPrice:
-      '.cart__total-price strong, .cart__order-total .cart__order-price-sum strong',
+    totalNumber: `.cart__total-number`,
+    totalPrice: '.cart__total-price strong, .cart__order-total .cart__order-price-sum strong',
     subtotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
     deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
     form: '.cart__order',
@@ -64,10 +66,10 @@ export const select = {
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
-    bookTable: '.booking-form [type="submit"]',
-    bookPhone: '.booking-form [name="phone"]',
-    bookAddress: '.booking-form [name="address"]',
-    starters: '[name="starter"]',
+    phone: '[name="phone"]',
+    address: '[name="address"]',
+    starter: '[name="starter"]',
+    submitTable: '.booking-form [type="submit"]',
   },
   nav: {
     links: '.main-nav a',
@@ -85,6 +87,7 @@ export const classNames = {
   booking: {
     loading: 'loading',
     tableBooked: 'booked',
+    tableSelected: 'selected',
   },
   nav: {
     active: 'active',
@@ -114,10 +117,8 @@ export const settings = {
     tableIdAttribute: 'data-table',
   },
   db: {
-    url:
-      '//' +
-      window.location.hostname +
-      (window.location.hostname == 'localhost' ? ':3131' : ''),
+    //url: '//localhost:3131',
+    url: '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : ''),
     product: 'product',
     order: 'order',
     booking: 'booking',
@@ -130,13 +131,7 @@ export const settings = {
 };
 
 export const templates = {
-  menuProduct: Handlebars.compile(
-    document.querySelector(select.templateOf.menuProduct).innerHTML
-  ),
-  bookingWidget: Handlebars.compile(
-    document.querySelector(select.templateOf.bookingWidget).innerHTML
-  ),
-  cartProduct: Handlebars.compile(
-    document.querySelector(select.templateOf.cartProduct).innerHTML
-  ),
+  menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
+  cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
+  bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
 };
